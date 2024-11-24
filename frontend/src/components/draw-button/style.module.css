@@ -1,0 +1,45 @@
+.button {
+  padding: 6px;
+  font-family: "Funnel Display", sans-serif;
+  background: #fdfdfd;
+  border: solid 1px #ebebeb;
+  cursor: pointer !important;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #565656;
+  margin: 4px;
+  margin-top: 8px;
+  border: solid 2px #565656;
+  align-items: center;
+  justify-content: left;
+  display: flex;
+  gap: 5px;
+}
+
+.button:hover {
+  transition: border 0.5s;
+  border: solid 2px #EB5E55;
+}
+
+.active {
+  border: solid 2px #EB5E55;
+}
+
+.hiddenOnMobile {}
+
+@media screen and (max-width: 900px) {
+
+  .expanded,
+  .collapsed {
+    display: none;
+  }
+
+  .button {
+    padding: 9px;
+  }
+
+  .hiddenOnMobile {
+    display: none;
+  }
+}

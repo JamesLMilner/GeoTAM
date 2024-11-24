@@ -1,0 +1,60 @@
+.geojson {
+  resize: none;
+  width: 100%;
+  flex-grow: 1;
+  /** accomidate the 3px margin top for the download button **/
+}
+
+.container {
+  padding: 20px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.downloadTextContainer {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: solid 3px #565656;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.copy {
+  padding: 10px;
+  font-weight: bold;
+  background: #eb5e55;
+  color: white;
+  border: 0;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  margin-top: 3px;
+}
+
+.download {
+  flex-grow: 1;
+  padding: 10px;
+  font-weight: bold;
+  background: #eb5e55;
+  color: white;
+  border: 0;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  margin-top: 3px;
+}
+
+.download:hover,
+.copy:hover {
+  background: #eb5e55c4;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.formatSelect {
+  margin-top: 3px;
+}
+
+.downloadContainer {
+  gap: 5px;
+  display: flex;
+}
