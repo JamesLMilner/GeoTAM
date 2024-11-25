@@ -1,11 +1,13 @@
+import { DataTypes } from 'sequelize';
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
 
 @Table({ tableName: 'Business' })
 export class Business extends Model {
   @Column({
-    type: DataType.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+    type: DataTypes.UUID, // UUID type
+    defaultValue: DataTypes.UUIDV4, // Automatically generate a UUID (version 4)
+    primaryKey: true, // Set as the primary key
+    allowNull: false,
   })
   id: number;
 

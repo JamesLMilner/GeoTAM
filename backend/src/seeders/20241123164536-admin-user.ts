@@ -1,6 +1,6 @@
 /** @type {import('sequelize-cli').Migration} */
 import * as bcrypt from 'bcrypt';
-import { loadEnvironmentVariables } from './helpers/env-file';
+import { loadEnvironmentVariables } from 'src/env-file';
 
 loadEnvironmentVariables();
 

@@ -177,10 +177,15 @@ export function calculateEstimateTurnover(business: Business): number {
 
   // We know that the GDP of Manchester is £87.7 billion
   // undamped this approach would give us a TAM of £755.8 billion
-  const greaterManchesterTAM = 755_777_778_764;
   const greaterManchesterGDP = 87_700_000_000;
+  const greaterManchesterTAM = 755_777_778_764;
 
-  const DAMPENING_FACTOR = greaterManchesterTAM / greaterManchesterGDP;
+  // We want to account for all the missing rows, so factor that into the dampening factor
+  const completeRows = 98522;
+  const totalRows = 175929;
+
+  const DAMPENING_FACTOR =
+    (greaterManchesterTAM * (totalRows / completeRows)) / greaterManchesterGDP;
 
   console.log({
     turnoverAnnualRentEstimate,

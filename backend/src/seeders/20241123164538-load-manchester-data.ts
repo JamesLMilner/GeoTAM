@@ -1,10 +1,10 @@
 /** @type {import('sequelize-cli').Migration} */
 
 import { QueryInterface, Sequelize } from 'sequelize';
-import { loadEnvironmentVariables } from './helpers/env-file';
 import { readCSVToArray } from './helpers/read-csv';
 import { v4 as uuidv4 } from 'uuid';
 import { chunkArray } from './helpers/chunk-array';
+import { loadEnvironmentVariables } from 'src/env-file';
 
 loadEnvironmentVariables();
 

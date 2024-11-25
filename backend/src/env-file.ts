@@ -4,7 +4,7 @@ import { existsSync } from 'fs';
 
 export function loadEnvironmentVariables() {
   // Load environment variables from .env file
-  const configPath = resolve(__dirname, '../../../.env');
+  const configPath = resolve(__dirname, '../.env');
   console.log('Using .env file from: ', configPath);
   console.log('');
 

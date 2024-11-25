@@ -8,6 +8,7 @@ import { existsSync } from 'fs';
 import * as dotenv from 'dotenv';
 import { User } from './user/user.model';
 import { BusinessModule } from './buisness/business.module';
+import { Business } from './buisness/business.model';
 
 // Load necessary environment variables locally
 const configPath = resolve(__dirname, '../.env');
@@ -29,7 +30,7 @@ if (checkExists) {
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      models: [User],
+      models: [User, Business],
       autoLoadModels: true,
     }),
     AuthModule,

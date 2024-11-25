@@ -29,12 +29,12 @@ const mapOptions = {
   maxZoom: 17,
   bounds: [
     [
-      -2.57081089,
-      53.301057892
+      -2.293589602548309,
+      53.45256594368598
     ],
     [
-      -1.916408645,
-      53.664261094
+      -2.1931019386415755,
+      53.50315412565925
     ],
   ] as [[number, number], [number, number]],
   ...manchesterCoordinates
@@ -45,7 +45,6 @@ const Dashboard = () => {
   const [map, setMap] = useState<undefined | maplibregl.Map>();
   const [mode, setMode] = useState<string>("static");
   const [expanded, setExpanded] = useState<boolean>(true);
-  // const [selected, setSelected] = useState<GeoJSONStoreFeatures | undefined>();
   const [features, setFeatures] = useState<GeoJSONStoreFeatures[]>([]);
   const [tab, setTabState] = useState<"geotam" | "download">(localStorage.getItem(
     'tab') ? localStorage.getItem('tab') as 'geotam' | 'download' : "geotam"
