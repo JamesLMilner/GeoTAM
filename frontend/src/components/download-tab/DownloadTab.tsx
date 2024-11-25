@@ -5,7 +5,7 @@ import { GeoJSONStoreFeatures } from "terra-draw";
  import { FeatureCollection } from "geojson";
 import { Button } from "../button/Button";
 
-const DownloadTab = ({ features,  setFormat }: { features: GeoJSONStoreFeatures[], format: 'geojson'  , setFormat: (format: 'geojson' ) => void }) => {
+const DownloadTab = ({ features }: { features: GeoJSONStoreFeatures[]}) => {
   const featureCollection = useMemo(
     () => ({
       type: "FeatureCollection",

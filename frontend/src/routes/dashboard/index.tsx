@@ -17,13 +17,16 @@ import DownloadTab from "../../components/download-tab/DownloadTab";
 import DrawButtons from "../../components/draw-buttons/DrawButtons";
 import { FeatureId } from "terra-draw/dist/store/store";
 import Header from "../../components/header/Header";
+import { OSMGreaterManchesterPolygon } from "./manchester-geojson";
+import area from "@turf/area";
+import { Feature, Polygon } from "geojson";
 
 const manchesterCoordinates = { lat: 53.483959, lng: -2.244644, zoom: 13, };
 
 const mapOptions = {
   id: "maplibre-map",
   minZoom: 7,
-  maxZoom: 19,
+  maxZoom: 17,
   bounds: [
     [
       -2.57081089,
@@ -47,7 +50,6 @@ const Dashboard = () => {
   const [tab, setTabState] = useState<"geotam" | "download">(localStorage.getItem(
     'tab') ? localStorage.getItem('tab') as 'geotam' | 'download' : "geotam"
   );
-  const [format, setFormat] = useState<'geojson'>('geojson');
   const [businesses, setBusinesses] = useState<any[]>([]);
 
   const setTab = (newTab: 'geotam' | 'download') => {
@@ -77,6 +79,8 @@ const Dashboard = () => {
     if (map) {
       const terraDraw = setupDraw(map);
       terraDraw.start();
+
+      terraDraw.addFeatures([OSMGreaterManchesterPolygon] as GeoJSONStoreFeatures[]);
       return terraDraw;
     }
   }, [map]);
@@ -91,13 +95,23 @@ const Dashboard = () => {
     [draw]
   );
 
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+
   const updateAreaOfInterest = useCallback((id: string) => {
     if (!draw) {
       return
     }
 
     const areaOfInterest = draw.getSnapshot().find((feature) => feature.id === id);
+    const areaSizeSqMeters = (area(areaOfInterest as Feature<Polygon>))
 
+    if (areaSizeSqMeters > 1000000) {
+      setError('Area too large, please try drawing a new smaller area of interest to find businesses')
+      return
+    }
+
+    setLoading(true);
     fetch("http://localhost:3000/api/business", 
         { 
         method: 'POST', headers: {
@@ -111,8 +125,10 @@ const Dashboard = () => {
         feature.properties.mode = 'point'
       })
 
+      setLoading(false)
       setBusinesses(data.features)
     }).catch((error) => {
+      setLoading(false)
       console.log('Error!', error)
     })
   }, [draw])
@@ -146,8 +162,8 @@ const Dashboard = () => {
   // We only want to wipe the businesses when the actual geometry of the Area of Interest changes
   const [areaOfInterestPolygon, setAreaOfInterestPolygon] = useState<GeoJSONStoreFeatures | undefined>();
   useEffect(() => {
-    console.log('areaOfInterestPolygon', areaOfInterestPolygon)
-    if (areaOfInterestPolygon) {
+     if (areaOfInterestPolygon) {
+      setError('')
       setBusinesses([])
     }
   }, [areaOfInterestPolygon])
@@ -165,9 +181,6 @@ const Dashboard = () => {
         return
       }
 
-      console.log('change', ids, type)
-
-
       const snapshot = draw.getSnapshot();
       const feature = snapshot.find((f) => ids.includes(f.id as string));
 
@@ -177,8 +190,6 @@ const Dashboard = () => {
         feature?.properties.mode === 'circle' || 
         feature?.properties.mode === 'freehand' 
       )) {
-
-        console.log('new area of interest', feature)
         // Only update the area of interest if the geometry has changed
         setAreaOfInterestPolygon((existingFeature) => {
           if (
@@ -193,7 +204,7 @@ const Dashboard = () => {
 
       // TODO: this is a bit of a hack to only count features and not selection helper geometries.
       // I think that 'f.geometry.type !== 'Point'' is only necessary because freehand doesn't assign closingPoint for some reason.
-      const areaOfInterestFeatures = snapshot.filter((f) => f.geometry.type !== 'Point' && !f.properties.selectionPoint && !f.properties.midPoint && !f.properties.closingPoint);
+      const areaOfInterestFeatures = snapshot.filter((f) => f.geometry.type !== 'Point' && !f.properties.selectionPoint && !f.properties.midPoint && !f.properties.closingPoint && f.properties.mode !== 'manchester');
 
       if (areaOfInterestFeatures.length > 1) {
         draw.removeFeatures([areaOfInterestFeatures[0].id as FeatureId])
@@ -247,9 +258,9 @@ const Dashboard = () => {
           </div>
 
           {tab === "geotam" ? (
-            <TAMTab features={features} />
+            <TAMTab features={features} loadingTAM={loading} errorTAM={error} />
           ) : (
-            <DownloadTab features={features} format={format} setFormat={(newFormat: 'geojson') => setFormat(newFormat)} />
+            <DownloadTab features={features} />
           )}
         </div>
       </div>

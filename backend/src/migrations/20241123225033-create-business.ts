@@ -23,6 +23,10 @@ module.exports = {
       },
       voaCategory: {
         allowNull: false,
+        type: DataType.STRING,
+      },
+      floorAreaSquareMeters: {
+        allowNull: false,
         type: DataType.INTEGER,
       },
       location: {

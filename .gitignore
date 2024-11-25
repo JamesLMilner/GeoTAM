@@ -5,6 +5,7 @@ frontend/node_modules/
 backend/.env
 frontend/.env
 scripts/data/
+backend/src/seeders/data
 
 .vscode/
 

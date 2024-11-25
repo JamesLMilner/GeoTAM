@@ -8,12 +8,10 @@ export function loadEnvironmentVariables() {
   console.log('Using .env file from: ', configPath);
   console.log('');
 
-  // Check it exsists
+  // Check it exists
   const checkExists = existsSync(configPath);
-  if (!checkExists) {
-    throw new Error('Cannot find .env file');
+  if (checkExists) {
+    // Actually load in the environment variables
+    dotenv.config({ path: configPath });
   }
-
-  // Actually load in the environment variables
-  dotenv.config({ path: configPath });
 }

@@ -9,13 +9,20 @@ import {
   TerraDrawRectangleMode,
   HexColor,
   TerraDrawPointMode,
+  TerraDrawRenderMode,
 } from "terra-draw";
 import maplibregl from "maplibre-gl";
 import { Validation } from "terra-draw/dist/common";
 
 export function setupDraw(map: maplibregl.Map) {
 
-  const ColorScheme = { Green: "#365943" as HexColor, White: "#ffffff" as HexColor, Orange: "#eb5e55" as HexColor };
+  const ColorScheme = {
+    Green: "#365943" as HexColor,
+    White: "#ffffff" as HexColor,
+    Orange: "#eb5e55" as HexColor,
+    OffWhite: '#f3f3f3' as HexColor, 
+    Grey: '#9f9f9f' as HexColor
+  };
 
   const PolygonValidation: Validation = (feature, { updateType }) => {
     if (updateType === "finish" || updateType === "commit") {
@@ -109,6 +116,15 @@ export function setupDraw(map: maplibregl.Map) {
           fillOpacity: 0.4,
           outlineColor: ColorScheme.Green,
           outlineWidth: 2,
+        }
+      }),
+      new TerraDrawRenderMode({
+        modeName: 'manchester',
+        styles: {
+          polygonFillColor: ColorScheme.OffWhite,
+          polygonFillOpacity: 0.2,
+          polygonOutlineColor: ColorScheme.Grey,
+          polygonOutlineWidth: 2,
         }
       }),
       new TerraDrawFreehandMode({

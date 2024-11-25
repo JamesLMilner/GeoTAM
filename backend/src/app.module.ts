@@ -9,11 +9,12 @@ import * as dotenv from 'dotenv';
 import { User } from './user/user.model';
 import { BusinessModule } from './buisness/business.module';
 
-// Load necessary environment variables
+// Load necessary environment variables locally
 const configPath = resolve(__dirname, '../.env');
 const checkExists = existsSync(configPath);
-if (!checkExists) throw new Error('Cannot find .env file');
-dotenv.config({ path: configPath });
+if (checkExists) {
+  dotenv.config({ path: configPath });
+}
 
 @Module({
   imports: [

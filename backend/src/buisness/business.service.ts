@@ -22,8 +22,10 @@ export class BusinessService {
       SELECT 
         "id",
         "address",
-        "rateableValue",
-        ST_AsGeoJSON(location)::JSON as location
+        "voaRateableValue",
+        "voaCategory",
+        "floorAreaSquareMeters",
+        ST_AsGeoJSON(location)::JSON AS "location"
       FROM "Business"
       WHERE ST_Within(location, ST_GeomFromGeoJSON('${polygonString}'));
     `,

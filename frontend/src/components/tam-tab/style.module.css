@@ -42,3 +42,13 @@ button:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.tamContainer {
+  height: 150px;
+}
+
+.errorText {
+  color: #c60f0f;
+  font-size: 18px;
+  margin-top: 20px;
+}
