@@ -114,10 +114,17 @@ const Dashboard = () => {
     fetch("http://localhost:3000/api/business", 
         { 
         method: 'POST', headers: {
-        'Content-Type': 'application/json'
-      }, 
-      body: JSON.stringify(areaOfInterest) 
-      }).then((response) => response.json()).then((data) => {
+          'Content-Type': 'application/json'
+        }, 
+        credentials: 'include', // Ensures cookies are sent
+        body: JSON.stringify(areaOfInterest) 
+      }).then((response) => {
+        if (response.status === 403) {
+          onLogout()
+        }
+
+        return response.json()
+      }).then((data) => {
 
       data.features.forEach((feature: any) => {
         feature.properties.type = 'business'

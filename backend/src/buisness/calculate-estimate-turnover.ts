@@ -139,10 +139,10 @@ export function calculateEstimateTurnover(business: Business): number {
   const averageRateableValueForCategory =
     dataByVoaSubCategory[business.voaCategory].averageRateableValue;
 
-  console.log({
-    averageFloorAreaForCategory,
-    averageRateableValueForCategory,
-  });
+  // console.log({
+  //   averageFloorAreaForCategory,
+  //   averageRateableValueForCategory,
+  // });
 
   // We work on the assumption that bigger businesses have higher turnover
   const floorAreaFactor =
@@ -187,12 +187,12 @@ export function calculateEstimateTurnover(business: Business): number {
   const DAMPENING_FACTOR =
     (greaterManchesterTAM * (totalRows / completeRows)) / greaterManchesterGDP;
 
-  console.log({
-    turnoverAnnualRentEstimate,
-    turnoverByEmployeeEstimate,
-    finalAverageEstimate,
-    averageBusinessSizeFactor,
-  });
+  // console.log({
+  //   turnoverAnnualRentEstimate,
+  //   turnoverByEmployeeEstimate,
+  //   finalAverageEstimate,
+  //   averageBusinessSizeFactor,
+  // });
 
   return finalAverageEstimate / DAMPENING_FACTOR;
 }
