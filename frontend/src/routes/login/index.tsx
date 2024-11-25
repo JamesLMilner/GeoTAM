@@ -5,8 +5,8 @@ import { useCallback, useState } from "preact/hooks";
 
 const Login = ({ setAuthenticated } : { setAuthenticated: (auth: boolean) => void } ) => {
 
-    const [username, setUsername] = useState<string>('admin@geotam.xyz')
-    const [password, setPassword] = useState<string>('manchestercitycenter')
+    const [username, setUsername] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [_, setLoading] = useState<boolean>(false)
 
@@ -50,7 +50,6 @@ const Login = ({ setAuthenticated } : { setAuthenticated: (auth: boolean) => voi
                             <div class={style.inputs}>
                                 <label>Email</label>
                                 <input
-                                    value={'admin@geotam.xyz'}
                                     required 
                                     onChange={(event) => {
                                         setUsername(event?.currentTarget?.value)
@@ -60,8 +59,6 @@ const Login = ({ setAuthenticated } : { setAuthenticated: (auth: boolean) => voi
                             <div class={style.inputs}>
                                 <label>Password</label>
                                 <input   
-                                value={'manchestercitycenter'}
-
                                 type="password" onChange={(event) => {
                                     setPassword(event?.currentTarget?.value)
                                 }} />
