@@ -107,7 +107,7 @@ const Dashboard = ({ authenticated }:{ authenticated: string }) => {
     console.log({ authenticated })
 
     setLoading(true);
-    fetch("http://localhost:3000/api/business", 
+    fetch("/api/business", 
         { 
         method: 'POST', 
         headers: {
@@ -131,7 +131,6 @@ const Dashboard = ({ authenticated }:{ authenticated: string }) => {
       setLoading(false)
       setBusinesses(data.features)
     }).catch((error) => {
-       
       setLoading(false)
       console.log('Error!', error)
     })

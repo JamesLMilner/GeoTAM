@@ -18,7 +18,7 @@ const Login = ({ setAuthenticated } : { setAuthenticated: (jwt: string) => void 
         
         setLoading(true)
 
-        fetch("http://localhost:3000/api/auth/login", {
+        fetch("/api/auth/login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

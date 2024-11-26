@@ -93,11 +93,18 @@
 }
 
 @media screen and (max-width: 900px) {
+  .title > h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
   .login {
     width: 100% !important;
   }
+
   .loginLayout {
-    width: 50% !important;
+    width: 65% !important;
+    padding: 15px;
   }
 
   .filter {
