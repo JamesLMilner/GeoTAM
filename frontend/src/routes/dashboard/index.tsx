@@ -116,7 +116,7 @@ const Dashboard = ({ authenticated }:{ authenticated: string }) => {
         },
         body: JSON.stringify(areaOfInterest) 
       }).then((response) => {
-        if (response.status === 403) {
+        if (response.status === 403 || response.status === 401) {
           onLogout()
         }
 
@@ -131,6 +131,7 @@ const Dashboard = ({ authenticated }:{ authenticated: string }) => {
       setLoading(false)
       setBusinesses(data.features)
     }).catch((error) => {
+       
       setLoading(false)
       console.log('Error!', error)
     })
