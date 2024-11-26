@@ -1,9 +1,20 @@
-import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
-import { BasicHTTPAuthGuard } from './basic-http.guard';
-import { AuthenticatedGuard } from './authenticated.guard';
+import {
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Request,
+  Body,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { AuthenticatedGuard } from './auth.guard';
 
 @Controller()
 export class AuthController {
+  constructor(private authService: AuthService) {}
+
   @UseGuards(AuthenticatedGuard)
   @Get('auth/check')
   checkAuth() {
@@ -12,11 +23,11 @@ export class AuthController {
     };
   }
 
-  @UseGuards(BasicHTTPAuthGuard)
+  @HttpCode(HttpStatus.OK)
   @Post('auth/login')
-  async login() {
-    console.log('AuthController.login');
-    return;
+  signIn(@Body() signInDto: Record<string, any>) {
+    console.log({ signInDto });
+    return this.authService.signIn(signInDto.username, signInDto.password);
   }
 
   @Post('auth/logout')

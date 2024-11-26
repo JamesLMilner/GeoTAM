@@ -3,7 +3,7 @@ import style from "./style.module.css";
 import background from "../../assets/imgs/manchester.png";
 import { useCallback, useState } from "preact/hooks";
 
-const Login = ({ setAuthenticated } : { setAuthenticated: (auth: boolean) => void } ) => {
+const Login = ({ setAuthenticated } : { setAuthenticated: (jwt: string) => void } ) => {
 
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -14,18 +14,28 @@ const Login = ({ setAuthenticated } : { setAuthenticated: (auth: boolean) => voi
         if (!username || !password) {
             return
         }
-
-        const base64 = btoa(`${username}:${password}`)
         
         setLoading(true)
 
         fetch("http://localhost:3000/api/auth/login", {
             method: "POST",
-            headers: { Authorization: `Basic ${base64}` },
-        }).then((response) => {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password }),
+        }).then(async(response) => {
+            console.log('Response:', response)
+
+            if (response.status !== 200) {
+                setLoading(false)
+                setError('Error: Invalid username or password')
+                return
+            }
+
+            const json = await response.json()
             setLoading(false)
-            setAuthenticated(true)
-            console.log('Success!', response)
+            setAuthenticated(json.access_token)
+           
         }).catch((error) => {
             setLoading(false)
             setError('Error: Invalid username or password')

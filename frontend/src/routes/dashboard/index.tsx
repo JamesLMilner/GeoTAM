@@ -40,7 +40,7 @@ const mapOptions = {
   ...manchesterCoordinates
 };
 
-const Dashboard = () => {
+const Dashboard = ({ authenticated }:{ authenticated: string }) => {
   const ref = useRef(null);
   const [map, setMap] = useState<undefined | maplibregl.Map>();
   const [mode, setMode] = useState<string>("static");
@@ -110,15 +110,16 @@ const Dashboard = () => {
       return
     }
 
+    console.log({ authenticated })
+
     setLoading(true);
     fetch("http://localhost:3000/api/business", 
         { 
         method: 'POST', 
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authenticated}`
         },
-        mode: 'cors',
-        credentials: 'include', // Ensures cookies are sent
         body: JSON.stringify(areaOfInterest) 
       }).then((response) => {
         if (response.status === 403) {
@@ -139,7 +140,7 @@ const Dashboard = () => {
       setLoading(false)
       console.log('Error!', error)
     })
-  }, [draw])
+  }, [draw, authenticated, onLogout])
 
   // Update the businesses on the map when the area of interest changes
   useEffect(() => {

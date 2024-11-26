@@ -16,11 +16,12 @@ async function bootstrap() {
   );
   app.use(passport.initialize());
   app.use(passport.session());
-  app.enableCors({
-    allowedHeaders: ['content-type'],
-    origin: 'https://geotam.onrender.com/',
-    credentials: true,
-  });
+  app.enableCors();
+  //   ({
+  //   allowedHeaders: ['content-type'],
+  //   origin: 'https://geotam.onrender.com/',
+  //   credentials: true,
+  // });
 
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);

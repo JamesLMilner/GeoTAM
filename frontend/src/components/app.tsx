@@ -8,7 +8,7 @@ import Dashboard from "../routes/dashboard";
 const App = () => {
 
   const [loading, setLoading] = useState<boolean>(true)
-  const [authenticated, setAuthenticated] = useState<boolean>(true)
+  const [authenticated, setAuthenticated] = useState<string>('')
 
   useEffect(() => {
     setLoading(true)
@@ -18,14 +18,14 @@ const App = () => {
     }).then((response) => {
         setLoading(false)
         if (response.status === 200) {
-          setAuthenticated(true)
+          setAuthenticated('')
           console.log('Success!', response)
         } else {
-          setAuthenticated(false)
+          setAuthenticated('')
         }
     }).catch((error) => {
         setLoading(false)
-        setAuthenticated(false)
+        setAuthenticated('')
         console.log('Error!', error)
     });
   }, [])
@@ -33,8 +33,8 @@ const App = () => {
   return <div id="app">
     {
       loading ? <div /> : !authenticated ? 
-      <Login setAuthenticated={(auth: boolean) => setAuthenticated(auth)} /> :
-      <Dashboard />
+      <Login setAuthenticated={(jwt: string) => setAuthenticated(jwt)} /> :
+      <Dashboard authenticated={authenticated} />
     } 
   </div>
 }

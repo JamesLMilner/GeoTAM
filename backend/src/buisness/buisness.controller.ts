@@ -1,8 +1,8 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 import { BusinessService } from './business.service';
 import { Feature, Polygon } from 'geojson';
 import { calculateEstimateTurnover } from './calculate-estimate-turnover';
+import { AuthenticatedGuard } from '../auth/auth.guard';
 
 @Controller()
 export class BusinessController {
