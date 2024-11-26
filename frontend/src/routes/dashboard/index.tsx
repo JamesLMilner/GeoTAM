@@ -113,9 +113,11 @@ const Dashboard = () => {
     setLoading(true);
     fetch("http://localhost:3000/api/business", 
         { 
-        method: 'POST', headers: {
+        method: 'POST', 
+        headers: {
           'Content-Type': 'application/json'
-        }, 
+        },
+        mode: 'cors',
         credentials: 'include', // Ensures cookies are sent
         body: JSON.stringify(areaOfInterest) 
       }).then((response) => {
