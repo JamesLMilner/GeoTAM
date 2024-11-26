@@ -57,14 +57,8 @@ const Dashboard = ({ authenticated }:{ authenticated: string }) => {
   }
 
   const onLogout = useCallback(() => {
-      fetch("http://localhost:3000/api/auth/logout", {
-        method: "POST",
-      }).then((response) => {
-        console.log('Success!', response)
-        window.location.reload()
-      }).catch((error) => {
-        console.log('Error!', error)
-      })
+    localStorage.removeItem('jwt');
+    window.location.reload();
   }, []);
 
   useEffect(() => {

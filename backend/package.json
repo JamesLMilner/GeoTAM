@@ -26,6 +26,7 @@
     "db:seed:down": "sequelize db:seed:undo --env development",
     "db:seed:up:prod": "sequelize db:seed:all --env production",
     "db:seed:down:prod": "sequelize db:seed:undo --env production",
+    "db:seed:down:all:prod": "sequelize db:seed:all --env production",
     "db:reset": "sequelize db:migrate:undo:all --env development && sequelize db:migrate --env development && sequelize db:seed:all --env development"
   },
   "dependencies": {

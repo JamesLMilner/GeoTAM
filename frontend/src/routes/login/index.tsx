@@ -9,6 +9,7 @@ const Login = ({ setAuthenticated } : { setAuthenticated: (jwt: string) => void 
     const [password, setPassword] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [_, setLoading] = useState<boolean>(false)
+    const version = '0.0.1'
 
     const login = useCallback((username: string, password: string) => {
         if (!username || !password) {
@@ -79,6 +80,8 @@ const Login = ({ setAuthenticated } : { setAuthenticated: (jwt: string) => void 
                             <button class={style.loginButton} disabled={!username || !password}>
                                 Login
                             </button>
+
+                            <p>v{version}</p>
                         </div>
                     </form>
                 </div>
