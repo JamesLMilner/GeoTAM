@@ -1,5 +1,6 @@
 import { Business } from './business.model';
 
+// employeePerSqM - Calculated from: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/378203/employ-den.pdf
 const dataByVoaSubCategory: Record<
   string,
   {
@@ -131,18 +132,16 @@ const dataByVoaSubCategory: Record<
 } as const;
 
 export function calculateEstimateTurnover(business: Business): number {
+  // 7% comes from Savills: https://www.savills.co.uk/research_articles/229130/304695-0
   const AVERAGE_RENT_TO_TURNOVER_PERCENTAGE = 7;
+
+  // Average turnover comes from Department of Business and Trade: https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fassets.publishing.service.gov.uk%2Fmedia%2F65169e937c2c4a000d95e23b%2Fbpe_2023_detailed_tables.xlsx&wdOrigin=BROWSELINK
   const AVERAGE_TURNOVER_PER_EMPLOYEE = 145498;
 
   const averageFloorAreaForCategory =
     dataByVoaSubCategory[business.voaCategory].averageFloorArea;
   const averageRateableValueForCategory =
     dataByVoaSubCategory[business.voaCategory].averageRateableValue;
-
-  // console.log({
-  //   averageFloorAreaForCategory,
-  //   averageRateableValueForCategory,
-  // });
 
   // We work on the assumption that bigger businesses have higher turnover
   const floorAreaFactor =
@@ -186,13 +185,6 @@ export function calculateEstimateTurnover(business: Business): number {
 
   const DAMPENING_FACTOR =
     (greaterManchesterTAM * (totalRows / completeRows)) / greaterManchesterGDP;
-
-  // console.log({
-  //   turnoverAnnualRentEstimate,
-  //   turnoverByEmployeeEstimate,
-  //   finalAverageEstimate,
-  //   averageBusinessSizeFactor,
-  // });
 
   return finalAverageEstimate / DAMPENING_FACTOR;
 }

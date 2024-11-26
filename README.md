@@ -83,6 +83,14 @@ Then you can start the backend app:
 npm run start:dev
 ```
 
+## Calculations
+
+Most of the calculations occur in:
+
+`backend/src/buisness/calculate-estimate-turnover.ts`
+
+If you want to see how the turnover/TAM numbers are derived.
+
 ## Assets
 
 Assets used are all open source.
