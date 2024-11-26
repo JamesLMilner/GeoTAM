@@ -56,12 +56,26 @@ PG_PASSWORD=postgres
 SEED_BUSINESSES_PATH=/path/to/your/open-local-data.csv
 ```
 
-You will also need to have your database set up. After this we can run the local migrations:
+You will also need to have your Postgres database created (in this case it's called geotam).
+
+This part is probably the most specific, as this app assumes that the data being loaded comes from the OpenLocal dataset given in the hackathon. However there is an additional stipulation that all the rows in the CSV have the 'voafloorarea' and 'voarateablevalue' fields complete. You can get a filtered version this by placing your OpenLocal dataset in scripts/data and renaming it 'open-local.csv', and the running the `filter-only-complete-csv.ts` against this new copy. You may also want to ensure the latitude and longitude columns are named correctly because longitude appeared to have been labelled `x1`, most likely be accident. 
+
+To run the script you can use the following commands: 
+
+```
+cd scripts
+npm install
+npx tsx filter-only-complete-csv.ts
+```
+
+After this assuming the env var SEED_BUSINESSES_PATH is set to your new data path (remember these seeds will run from the backend/dist folder so it has to be either absolute, or relative from there), we can run the local migrations:
 
 ```
 npm run db:migrate:up
 npm run db:seed:up
 ```
+
+RThe first seed (`backend/src/seeders/20241123164536-admin-user.ts`) will add a admin user to allow you to login, the second seed (20241123164538-load-manchester-data.ts) will the actual business data you need to draw and fetch the businesses in the UI. Both will be critical to getting the application going 
 
 Then you can start the backend app:
 
