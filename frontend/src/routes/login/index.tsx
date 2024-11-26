@@ -75,7 +75,7 @@ const Login = ({ setAuthenticated } : { setAuthenticated: (jwt: string) => void 
                                 }} />
                             </div>
                         </div>
-                        <div >
+                        <div className={style.loginAndVersion}>
                             {error && <div class={style.error}>{error}</div>}
                             <button class={style.loginButton} disabled={!username || !password}>
                                 Login

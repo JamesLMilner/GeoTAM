@@ -86,16 +86,11 @@
   margin-top: 10px;
 }
 
-.loginAndVersion {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.loginAndVersion > p {
+.loginAndVersion p {
   text-align: center;
   font-size: 14px;
-  color: grey;}
+  color: grey;
+}
 
 @media screen and (max-width: 900px) {
   .login {
