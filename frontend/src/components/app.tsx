@@ -11,16 +11,24 @@ const App = () => {
   const [authenticated, setAuthenticated] = useState<string>('')
 
   useEffect(() => {
+    if (authenticated) {
+      localStorage.setItem('jwt', authenticated)
+    }
+
+    if (!authenticated && localStorage.getItem('jwt')) {
+      setAuthenticated(localStorage.getItem('jwt') as string);
+    }
+
+  }, [authenticated])
+
+  useEffect(() => {
     setLoading(true)
 
     fetch("http://localhost:3000/api/auth/check", {
         method: "GET",
     }).then((response) => {
         setLoading(false)
-        if (response.status === 200) {
-          setAuthenticated('')
-          console.log('Success!', response)
-        } else {
+        if (response.status !== 200) {
           setAuthenticated('')
         }
     }).catch((error) => {
